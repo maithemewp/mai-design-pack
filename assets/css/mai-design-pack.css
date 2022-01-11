@@ -106,7 +106,7 @@
 
 .mai-addon-loader {
 	position: absolute;
-	top: 50%;
+	top: calc(50% - 16px); /* minus half the action-links height */
 	left: 50%;
 	display: block;
 	margin: -1.5em 0 0 -1.5em;

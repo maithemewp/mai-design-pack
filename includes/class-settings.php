@@ -480,8 +480,9 @@ class Mai_Design_Pack_Settings {
 			// 	'docs' => '',
 			// ],
 			'mai-custom-content-areas' => [
-				'desc' => __( 'Mai Custom Content Areas is a game changer when it comes to creating a conversion marketing strategy on your website. Easily display calls to action and other custom content in different locations on posts, pages, and custom post types conditionally by category, tag, taxonomy, keyword, and more.', 'mai-design-pack' ),
-				'docs' => '',
+				'desc'     => __( 'Mai Custom Content Areas is a game changer when it comes to creating a conversion marketing strategy on your website. Easily display calls to action and other custom content in different locations on posts, pages, and custom post types conditionally by category, tag, taxonomy, keyword, and more.', 'mai-design-pack' ),
+				'docs'     => '',
+				'settings' => admin_url( 'edit.php?post_type=mai_template_part' ),
 			],
 			'mai-archive-pages'        => [
 				'desc' => __( 'Mai Archive Pages plugin allows you to build robust and SEO-friendly archive pages with blocks. Customize the content before and after your archive content to strategically build out your archive pages for SEO.', 'mai-design-pack' ),
