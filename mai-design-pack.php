@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Mai Design Pack
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
- * Description:     Unlimited access to all Mai Add-On plugins, and more.
+ * Description:     Unlimited access to all Mai Add-on plugins, and more.
  * Version:         0.1.0
  *
  * Author:          BizBudding
