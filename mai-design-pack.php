@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Mai Design Pack
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
- * Description:     Unlimited access to all Mai Add-on plugins, and more.
+ * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
  * Version:         0.1.0
  *
  * Author:          BizBudding
@@ -138,9 +138,8 @@ final class Mai_Design_Pack {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'admin_init',        [ $this, 'updater' ] );
-		add_action( 'after_setup_theme', [ $this, 'setup' ] ); // plugins_loaded was too early to check for 'mai-engine'.
-		add_filter( 'plugin_action_links_mai-design-pack/mai-design-pack.php', [ $this, 'addons_link' ], 10, 4 );
+		add_action( 'admin_init', [ $this, 'updater' ] );
+		add_filter( 'plugin_action_links_mai-design-pack/mai-design-pack.php', [ $this, 'plugins_link' ], 10, 4 );
 	}
 
 	/**
@@ -185,44 +184,6 @@ final class Mai_Design_Pack {
 	}
 
 	/**
-	 * Load mai-engine files, or deactivate if active theme is not supported.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return void
-	 */
-	function setup() {
-		// Bail if no engine is anywhere.
-		if ( ! ( class_exists( 'Mai_Theme_Engine' ) || class_exists( 'Mai_Engine' ) ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice' ] );
-			return;
-		}
-	}
-
-	/**
-	 * Show notice that the plugin has been deactivated.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return void
-	 */
-	function admin_notice() {
-		printf(
-			'<div class="notice notice-error is-dismissible"><p>%s%s%s%s%s%s</p></div>',
-			'Mai Design Pack ',
-			__( 'requires the ', 'mai-engine' ),
-			'Mai Engine ',
-			__( 'plugin. As a result, ', 'mai-engine' ),
-			'Mai Design Pack ',
-			__( 'has been deactivated.', 'mai-engine' )
-		);
-
-		if ( isset( $_GET['activate'] ) ) {
-			unset( $_GET['activate'] );
-		}
-	}
-
-	/**
 	 * Return the plugin action links. This will only be called if the plugin is active.
 	 *
 	 * @since 0.1.0
@@ -234,8 +195,10 @@ final class Mai_Design_Pack {
 	 *
 	 * @return array Associative array of plugin action links
 	 */
-	function addons_link( $actions, $plugin_file, $plugin_data, $context ) {
-		$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Add-ons', 'mai-engine' ) );
+	function plugins_link( $actions, $plugin_file, $plugin_data, $context ) {
+		if ( class_exists( 'Mai_Engine' ) ) {
+			$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Plugins', 'mai-engine' ) );
+		}
 
 		return $actions;
 	}
