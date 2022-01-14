@@ -128,9 +128,7 @@ final class Mai_Design_Pack {
 		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
 		// Includes.
-		foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
-		// Instantiate classes.
-		// $settings = new Mai_Design_Pack_Settings;
+		// foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 	}
 
 	/**
