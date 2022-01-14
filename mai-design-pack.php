@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Mai Design Pack
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
- * Description:     TBD
+ * Description:     Unlimited access to all Mai Add-On plugins, and more.
  * Version:         0.1.0
  *
  * Author:          BizBudding
@@ -130,7 +130,7 @@ final class Mai_Design_Pack {
 		// Includes.
 		foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 		// Instantiate classes.
-		$settings = new Mai_Design_Pack_Settings;
+		// $settings = new Mai_Design_Pack_Settings;
 	}
 
 	/**
@@ -142,6 +142,7 @@ final class Mai_Design_Pack {
 	public function hooks() {
 		add_action( 'admin_init',        [ $this, 'updater' ] );
 		add_action( 'after_setup_theme', [ $this, 'setup' ] ); // plugins_loaded was too early to check for 'mai-engine'.
+		add_filter( 'plugin_action_links_mai-design-pack/mai-design-pack.php', [ $this, 'addons_link' ], 10, 4 );
 	}
 
 	/**
@@ -201,24 +202,13 @@ final class Mai_Design_Pack {
 	}
 
 	/**
-	 * Deactivate plugin.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return void
-	 */
-	function deactivate_plugin() {
-		deactivate_plugins( basename( dirname( __DIR__ ) ) . '/mai-design-pack.php' );
-	}
-
-	/**
 	 * Show notice that the plugin has been deactivated.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @return void
 	 */
-	function deactivate_plugin_notice() {
+	function admin_notice() {
 		printf(
 			'<div class="notice notice-error is-dismissible"><p>%s%s%s%s%s%s</p></div>',
 			'Mai Design Pack ',
@@ -232,6 +222,24 @@ final class Mai_Design_Pack {
 		if ( isset( $_GET['activate'] ) ) {
 			unset( $_GET['activate'] );
 		}
+	}
+
+	/**
+	 * Return the plugin action links. This will only be called if the plugin is active.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array  $actions     Associative array of action names to anchor tags
+	 * @param string $plugin_file Plugin file name, ie my-plugin/my-plugin.php
+	 * @param array  $plugin_data Associative array of plugin data from the plugin file headers
+	 * @param string $context     Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
+	 *
+	 * @return array Associative array of plugin action links
+	 */
+	function addons_link( $actions, $plugin_file, $plugin_data, $context ) {
+		$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Add-ons', 'mai-engine' ) );
+
+		return $actions;
 	}
 }
 
