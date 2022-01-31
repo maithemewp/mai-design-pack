@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-develop',
+    'version' => 'dev-develop',
     'aliases' => 
     array (
     ),
-    'reference' => '960c44ee52a6a6ffc204cb55b7a41c00a9000ca5',
+    'reference' => '8c4dcc9e76c6d06fad314dfb3bc1944d97d92b2e',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
       'aliases' => 
       array (
       ),
-      'reference' => '960c44ee52a6a6ffc204cb55b7a41c00a9000ca5',
+      'reference' => '8c4dcc9e76c6d06fad314dfb3bc1944d97d92b2e',
     ),
     'yahnis-elsts/plugin-update-checker' => 
     array (
