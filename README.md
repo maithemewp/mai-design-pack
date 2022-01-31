@@ -1,2 +1,2 @@
 # Mai Design Pack
-TODO
+Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
