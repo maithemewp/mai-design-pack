@@ -138,8 +138,31 @@ final class Mai_Design_Pack {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'admin_init', [ $this, 'updater' ] );
-		add_filter( 'plugin_action_links_mai-design-pack/mai-design-pack.php', [ $this, 'plugins_link' ], 10, 4 );
+		$plugins_link_hook = 'plugin_action_links_mai-design-pack/mai-design-pack.php';
+		add_filter( $plugins_link_hook, [ $this, 'plugins_link' ], 10, 4 );
+		add_action( 'admin_init',       [ $this, 'updater' ] );
+		add_action( 'init',             [ $this, 'register_block_pattern_categories' ] );
+		add_action( 'init',             [ $this, 'register_block_patterns' ] );
+	}
+
+	/**
+	 * Return the plugin action links. This will only be called if the plugin is active.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array  $actions     Associative array of action names to anchor tags
+	 * @param string $plugin_file Plugin file name, ie my-plugin/my-plugin.php
+	 * @param array  $plugin_data Associative array of plugin data from the plugin file headers
+	 * @param string $context     Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
+	 *
+	 * @return array Associative array of plugin action links
+	 */
+	function plugins_link( $actions, $plugin_file, $plugin_data, $context ) {
+		if ( class_exists( 'Mai_Engine' ) ) {
+			$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Plugins', 'mai-engine' ) );
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -184,23 +207,126 @@ final class Mai_Design_Pack {
 	}
 
 	/**
-	 * Return the plugin action links. This will only be called if the plugin is active.
+	 * Registers block pattern categories.
 	 *
-	 * @since 0.1.0
+	 * @since TBD
 	 *
-	 * @param array  $actions     Associative array of action names to anchor tags
-	 * @param string $plugin_file Plugin file name, ie my-plugin/my-plugin.php
-	 * @param array  $plugin_data Associative array of plugin data from the plugin file headers
-	 * @param string $context     Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
-	 *
-	 * @return array Associative array of plugin action links
+	 * @return void
 	 */
-	function plugins_link( $actions, $plugin_file, $plugin_data, $context ) {
-		if ( class_exists( 'Mai_Engine' ) ) {
-			$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Plugins', 'mai-engine' ) );
+	function register_block_pattern_categories() {
+		// Types: Blocks, Sections, Homepages
+		// CTA 1 (Block)
+		// CTA 2 (Section)
+
+		// Contact Forms
+		// CTAs
+		// FAQs
+		// Features
+		// Footers
+		// Hero
+		// Homepages
+		// Landing Pages
+		// Logos
+		// Podcasts
+		// Portfolios
+		// Pricing Tables
+		// Team
+		// Testimonials
+
+		$cats = [
+			'mai'         => __( 'Mai (All Patterns)', 'mai-engine' ),
+			'mai_section' => __( 'Mai (Full Width Sections)', 'mai-engine' ),
+			'mai_cta'     => __( 'Mai CTAs', 'mai-engine' ),
+			'mai_feature' => __( 'Mai Features', 'mai-engine' ),
+			'mai_hero'    => __( 'Mai Heroes', 'mai-engine' ),
+			'mai_posts'   => __( 'Mai Post Grid', 'mai-engine' ),
+		];
+
+		foreach ( $cats as $name => $label ) {
+			register_block_pattern_category( $name,	[ 'label' => $label ] );
+		}
+	}
+
+	/**
+	 * Registers block patterns.
+	 *
+	 * Settable fields include:
+	 *
+	 *   - Description
+	 *   - Categories       (comma-separated values)
+	 *   - Keywords         (comma-separated values)
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	function register_block_patterns() {
+		if ( ! function_exists( 'register_block_pattern' ) ) {
+			return;
 		}
 
-		return $actions;
+		// Loop through patterns directories.
+		foreach ( glob( dirname( __FILE__ ) . '/patterns/*' ) as $dir ) {
+			// Loop through files.
+			foreach ( glob( $dir . '/*.php' ) as $file ) {
+				$base = basename( $file, '.php' );
+				$data = get_file_data(
+					$file,
+					[
+						'title'       => __( 'Title', 'mai-engine' ),
+						'description' => __( 'Description', 'mai-engine' ),
+						'categories'  => __( 'Categories', 'mai-engine' ),
+						'keywords'    => __( 'Keywords', 'mai-engine' ),
+					]
+				);
+
+				ob_start();
+				include $file;
+				$content    = ob_get_clean();
+				$title      = function_exists( 'mai_convert_case' ) ? mai_convert_case( $base, 'title' ) : $base;
+				$categories = array_map( 'trim', explode( ',', $data['categories'] ) );
+				$keywords   = array_map( 'trim', explode( ',', $data['keywords'] ) );
+
+				// Adds `mai_` prefix.
+				foreach ( $categories as $index => $category ) {
+					$categories[ $index ] = 'mai_' . $category;
+				}
+
+				// Adds 'mai' as standalone category and keyword.
+				$categories = array_merge( [ 'mai' ], $categories );
+				$keywords   = array_merge( [ 'mai' ], $keywords );
+
+				// Maybe add Section label.
+				if ( in_array( 'mai_section', $categories ) ) {
+					$title .= ' (Section)'; // Translated below.
+				}
+
+				register_block_pattern(
+					'mai/' . $base,
+					[
+						'title'       => __( $title, 'mai-engine' ),
+						'description' => __( $data['description'], 'mai-engine' ),
+						'content'     => trim( $content ),
+						'categories'  => $categories,
+						'keywords'    => $keywords,
+					]
+				);
+			}
+		}
+	}
+
+	/**
+	 * Gets a placeholder image url.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $orientation The image orientation. Either 'landscape', 'portrait', or 'square'.
+	 *
+	 * @return string
+	 */
+	function get_placeholder_image_url( $orientation = 'landscape' ) {
+		$file = esc_html( sprintf( 'assets/img/placeholder-%s.png', $orientation ) );
+		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
 	}
 }
 
@@ -218,5 +344,26 @@ function mai_design_pack() {
 	return Mai_Design_Pack::instance();
 }
 
-// Get Mai_Design_Pack Running.
+/**
+ * Get Mai_Design_Pack Running.
+ *
+ * @since 0.1.0
+ *
+ * @return void
+ */
 mai_design_pack();
+
+/**
+ * Gets a placeholder image url.
+ *
+ * @access private
+ *
+ * @since TBD
+ *
+ * @param string $orientation The image orientation. Either 'landscape', 'portrait', or 'square'.
+ *
+ * @return string
+ */
+function maidp_get_placeholder_image_url( $orientation = 'landscape' ) {
+	return mai_design_pack()->get_placeholder_image_url( $orientation );
+}
