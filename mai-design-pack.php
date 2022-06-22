@@ -141,8 +141,9 @@ final class Mai_Design_Pack {
 		$plugins_link_hook = 'plugin_action_links_mai-design-pack/mai-design-pack.php';
 		add_filter( $plugins_link_hook, [ $this, 'plugins_link' ], 10, 4 );
 		add_action( 'admin_init',       [ $this, 'updater' ] );
-		add_action( 'init',             [ $this, 'register_block_pattern_categories' ] );
-		add_action( 'init',             [ $this, 'register_block_patterns' ] );
+		add_action( 'init',             [ $this, 'register_block_pattern_categories' ], 4 );
+		add_action( 'init',             [ $this, 'unregister_block_pattern_categories' ] );
+		add_action( 'init',             [ $this, 'register_block_patterns' ], 4 );
 	}
 
 	/**
@@ -240,10 +241,22 @@ final class Mai_Design_Pack {
 			'mai_feature' => __( 'Mai Features', 'mai-engine' ),
 			'mai_hero'    => __( 'Mai Heroes', 'mai-engine' ),
 			'mai_posts'   => __( 'Mai Post Grid', 'mai-engine' ),
+			'mai_pricing' => __( 'Mai Pricing Tables', 'mai-engine' ),
+			'mai_team'    => __( 'Mai Team', 'mai-engine' ),
 		];
 
 		foreach ( $cats as $name => $label ) {
 			register_block_pattern_category( $name,	[ 'label' => $label ] );
+		}
+	}
+
+	function unregister_block_pattern_categories() {
+		$cats = [
+			'featured',
+		];
+
+		foreach ( $cats as $cat ) {
+			unregister_block_pattern_category( $cat );
 		}
 	}
 
@@ -324,8 +337,22 @@ final class Mai_Design_Pack {
 	 *
 	 * @return string
 	 */
-	function get_placeholder_image_url( $orientation = 'landscape' ) {
+	function get_image_url( $orientation = 'landscape' ) {
 		$file = esc_html( sprintf( 'assets/img/placeholder-%s.png', $orientation ) );
+		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
+	}
+
+	/**
+	 * Gets an avatar image url.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $number The image number.
+	 *
+	 * @return string
+	 */
+	function get_avatar_url( $number = 1 ) {
+		$file = esc_html( sprintf( 'assets/img/avatar-%s.png', absint( $number ) ) );
 		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
 	}
 }
@@ -357,13 +384,26 @@ mai_design_pack();
  * Gets a placeholder image url.
  *
  * @access private
- *
  * @since TBD
  *
  * @param string $orientation The image orientation. Either 'landscape', 'portrait', or 'square'.
  *
  * @return string
  */
-function maidp_get_placeholder_image_url( $orientation = 'landscape' ) {
-	return mai_design_pack()->get_placeholder_image_url( $orientation );
+function maidp_get_image_url( $orientation = 'landscape' ) {
+	return mai_design_pack()->get_image_url( $orientation );
+}
+
+/**
+ * Gets an avatar image url.
+ *
+ * @access private
+ * @since TBD
+ *
+ * @param int $number The image number.
+ *
+ * @return string
+ */
+function maidp_get_avatar_url( $number = 1 ) {
+	return mai_design_pack()->get_avatar_url( $number );
 }
