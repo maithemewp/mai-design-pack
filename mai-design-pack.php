@@ -235,7 +235,6 @@ final class Mai_Design_Pack {
 		// Testimonials
 
 		$cats = [
-			'mai'         => __( 'Mai (All Patterns)', 'mai-engine' ),
 			'mai_section' => __( 'Mai (Full Width Sections)', 'mai-engine' ),
 			'mai_cta'     => __( 'Mai CTAs', 'mai-engine' ),
 			'mai_feature' => __( 'Mai Features', 'mai-engine' ),
@@ -243,6 +242,7 @@ final class Mai_Design_Pack {
 			'mai_posts'   => __( 'Mai Post Grid', 'mai-engine' ),
 			'mai_pricing' => __( 'Mai Pricing Tables', 'mai-engine' ),
 			'mai_team'    => __( 'Mai Team', 'mai-engine' ),
+			'mai'         => __( 'Mai (All Patterns)', 'mai-engine' ),
 		];
 
 		foreach ( $cats as $name => $label ) {
@@ -333,26 +333,12 @@ final class Mai_Design_Pack {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $orientation The image orientation. Either 'landscape', 'portrait', or 'square'.
+	 * @param string $filename The image file name withiout extension.
 	 *
 	 * @return string
 	 */
-	function get_image_url( $orientation = 'landscape' ) {
-		$file = esc_html( sprintf( 'assets/img/placeholder-%s.png', $orientation ) );
-		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
-	}
-
-	/**
-	 * Gets an avatar image url.
-	 *
-	 * @since TBD
-	 *
-	 * @param int $number The image number.
-	 *
-	 * @return string
-	 */
-	function get_avatar_url( $number = 1 ) {
-		$file = esc_html( sprintf( 'assets/img/avatar-%s.png', absint( $number ) ) );
+	function get_image_url( $filename ) {
+		$file = esc_html( sprintf( 'assets/img/%s.png', $filename ) );
 		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
 	}
 }
@@ -386,24 +372,10 @@ mai_design_pack();
  * @access private
  * @since TBD
  *
- * @param string $orientation The image orientation. Either 'landscape', 'portrait', or 'square'.
+ * @param string $filename The image file name withiout extension.
  *
  * @return string
  */
-function maidp_get_image_url( $orientation = 'landscape' ) {
-	return mai_design_pack()->get_image_url( $orientation );
-}
-
-/**
- * Gets an avatar image url.
- *
- * @access private
- * @since TBD
- *
- * @param int $number The image number.
- *
- * @return string
- */
-function maidp_get_avatar_url( $number = 1 ) {
-	return mai_design_pack()->get_avatar_url( $number );
+function maidp_get_image_url( $filename ) {
+	return mai_design_pack()->get_image_url( $filename );
 }

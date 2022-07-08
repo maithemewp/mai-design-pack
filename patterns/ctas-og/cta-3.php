@@ -1,6 +1,6 @@
 <?php
 /**
- * Description: Simple CTA
+ * Description: Callout content CTA
  * Categories: cta
  * Keywords: cta
  */

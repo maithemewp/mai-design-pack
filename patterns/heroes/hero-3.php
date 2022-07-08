@@ -29,7 +29,7 @@
 
 <!-- wp:acf/mai-column {"name":"acf/mai-column","data":{"align_column_vertical":"start","_align_column_vertical":"mai_column_align_column_vertical","spacing":"","_spacing":"mai_column_spacing","background":"","_background":"mai_column_background","shadow":"0","_shadow":"mai_columns_shadow","first_xs":"1","_first_xs":"mai_columns_first_xs","first_sm":"1","_first_sm":"mai_columns_first_sm","first_md":"0","_first_md":"mai_columns_first_md"},"mode":"preview"} -->
 <!-- wp:image {"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="<?php echo maidp_get_image_url( 'landscape' ); ?>" alt="placeholder image"/></figure>
+<figure class="wp-block-image size-large"><img src="<?php echo maidp_get_image_url( 'placeholder-landscape' ); ?>" alt="placeholder image"/></figure>
 <!-- /wp:image -->
 <!-- /wp:acf/mai-column -->
 <!-- /wp:acf/mai-columns --></div>

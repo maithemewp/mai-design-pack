@@ -5,8 +5,8 @@
  * Keywords: hero, section
  */
 ?>
-<!-- wp:cover {"url":"<?php echo maidp_get_image_url( 'landscape' ); ?>","dimRatio":90,"overlayColor":"heading","align":"full","contentWidth":"md","verticalSpacingTop":"lg","verticalSpacingBottom":"lg"} -->
-<div class="wp-block-cover alignfull"><span aria-hidden="true" class="wp-block-cover__background has-heading-background-color has-background-dim-90 has-background-dim"></span><img class="wp-block-cover__image-background" alt="placeholder image" src="<?php echo maidp_get_image_url( 'landscape' ); ?>" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:heading {"textAlign":"center"} -->
+<!-- wp:cover {"url":"<?php echo maidp_get_image_url( 'placeholder-landscape' ); ?>","dimRatio":90,"overlayColor":"heading","align":"full","contentWidth":"md","verticalSpacingTop":"lg","verticalSpacingBottom":"lg"} -->
+<div class="wp-block-cover alignfull"><span aria-hidden="true" class="wp-block-cover__background has-heading-background-color has-background-dim-90 has-background-dim"></span><img class="wp-block-cover__image-background" alt="placeholder image" src="<?php echo maidp_get_image_url( 'placeholder-landscape' ); ?>" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="has-text-align-center">This Is An Important Headline</h2>
 <!-- /wp:heading -->
 

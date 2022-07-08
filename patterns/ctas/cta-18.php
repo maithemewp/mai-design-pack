@@ -1,11 +1,12 @@
 <?php
 /**
- * Description: Simple CTA with centered content
+ * Description: CTA with colored border and centered content
  * Categories: cta
  * Keywords: cta
  */
 ?>
-<!-- wp:group {"backgroundColor":"alt","verticalSpacingTop":"md","verticalSpacingBottom":"md","verticalSpacingLeft":"md","verticalSpacingRight":"md"} -->
+<!-- wp:group {"backgroundColor":"primary","verticalSpacingTop":"xs","verticalSpacingBottom":"xs","verticalSpacingLeft":"xs","verticalSpacingRight":"xs"} -->
+<div class="wp-block-group has-primary-background-color has-background"><!-- wp:group {"backgroundColor":"alt","verticalSpacingTop":"md","verticalSpacingBottom":"md","verticalSpacingLeft":"md","verticalSpacingRight":"md"} -->
 <div class="wp-block-group has-alt-background-color has-background"><!-- wp:paragraph {"align":"center","textColor":"primary","className":"is-style-subheading","fontSize":"sm","spacingBottom":"md"} -->
 <p class="has-text-align-center is-style-subheading has-primary-color has-text-color has-sm-font-size">Intro Heading</p>
 <!-- /wp:paragraph -->
@@ -23,4 +24,5 @@
 <div class="wp-block-button"><a class="wp-block-button__link">Learn More</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->

@@ -5,8 +5,8 @@
  * Keywords: hero, section
  */
 ?>
-<!-- wp:cover {"url":"<?php echo maidp_get_image_url( 'landscape' ); ?>","dimRatio":0,"align":"full","contentWidth":"md","verticalSpacingTop":"lg","verticalSpacingBottom":"lg"} -->
-<div class="wp-block-cover alignfull"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span><img class="wp-block-cover__image-background" alt="placeholder image" src="<?php echo maidp_get_image_url( 'landscape' ); ?>" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:cover {"dimRatio":90,"overlayColor":"white","isDark":false,"verticalSpacingTop":"md","verticalSpacingBottom":"md","verticalSpacingLeft":"md","verticalSpacingRight":"md"} -->
+<!-- wp:cover {"url":"<?php echo maidp_get_image_url( 'placeholder-landscape' ); ?>","dimRatio":0,"align":"full","contentWidth":"md","verticalSpacingTop":"lg","verticalSpacingBottom":"lg"} -->
+<div class="wp-block-cover alignfull"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span><img class="wp-block-cover__image-background" alt="placeholder image" src="<?php echo maidp_get_image_url( 'placeholder-landscape' ); ?>" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:cover {"dimRatio":90,"overlayColor":"white","isDark":false,"verticalSpacingTop":"md","verticalSpacingBottom":"md","verticalSpacingLeft":"md","verticalSpacingRight":"md"} -->
 <div class="wp-block-cover is-light"><span aria-hidden="true" class="wp-block-cover__background has-white-background-color has-background-dim-90 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="has-text-align-center">This Is A Nice Headline</h2>
 <!-- /wp:heading -->
