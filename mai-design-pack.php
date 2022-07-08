@@ -280,8 +280,12 @@ final class Mai_Design_Pack {
 
 		// Loop through patterns directories.
 		foreach ( glob( dirname( __FILE__ ) . '/patterns/*' ) as $dir ) {
+			// Get array of files.
+			$files =  glob( $dir . '/*.php' );
+			// Order them correctly, respecting the numbers at the end.
+			natsort( $files );
 			// Loop through files.
-			foreach ( glob( $dir . '/*.php' ) as $file ) {
+			foreach ( $files as $file ) {
 				$base = basename( $file, '.php' );
 				$data = get_file_data(
 					$file,

@@ -16,6 +16,7 @@
 <h2>This is a nice heading</h2>
 <!-- /wp:heading -->
 
+<?php if ( class_exists( 'Mai_List' ) ) { ?>
 <!-- wp:acf/mai-list {"name":"acf/mai-list","data":{"mai_list_type":"ul","mai_list_location":"start","mai_list_icon_clone":{"mai_icon_style":"light","mai_icon_choices":"check-circle"},"mai_list_icon_color_clone":{"mai_icon_color":"","mai_icon_background":""},"mai_list_icon_size":"","mai_list_icon_padding":"","mai_list_icon_border_radius":"","mai_list_icon_gap":"md","mai_list_icon_margin_top":"0","mai_list_content_margin_top":"2","mai_list_columns_clone":{"mai_columns":"1","mai_columns_responsive":"0","mai_column_gap":"md","mai_row_gap":"md","mai_margin_top":"","mai_margin_bottom":""}},"mode":"preview"} -->
 <!-- wp:acf/mai-list-item {"name":"acf/mai-list-item","data":{"style":"light","_style":"mai_icon_style","icon":"","_icon":"mai_icon_choices","icon_clone":"","_icon_clone":"mai_list_item_icon_clone","color_icon":"","_color_icon":"mai_icon_color","color_background":"","_color_background":"mai_icon_background","icon_color_clone":"","_icon_color_clone":"mai_list_item_icon_color_clone"},"mode":"preview"} -->
 <!-- wp:paragraph -->
@@ -35,6 +36,11 @@
 <!-- /wp:paragraph -->
 <!-- /wp:acf/mai-list-item -->
 <!-- /wp:acf/mai-list -->
+<?php } else { ?>
+<!-- wp:heading {"textAlign":"center","style":{"color":{"background":"#ff0000"}},"textColor":"white"} -->
+<h2 class="has-text-align-center has-white-color has-text-color has-background" style="background-color:#ff0000">Requires Mai Lists plugin.</h2>
+<!-- /wp:heading -->
+<?php } ?>
 <!-- /wp:acf/mai-column -->
 
 <!-- wp:acf/mai-column {"name":"acf/mai-column","data":{"align_column_vertical":"start","_align_column_vertical":"mai_column_align_column_vertical","spacing":"","_spacing":"mai_column_spacing","background":"","_background":"mai_column_background","shadow":"0","_shadow":"mai_columns_shadow","first_xs":"0","_first_xs":"mai_columns_first_xs","first_sm":"0","_first_sm":"mai_columns_first_sm","first_md":"0","_first_md":"mai_columns_first_md"},"mode":"preview"} -->
