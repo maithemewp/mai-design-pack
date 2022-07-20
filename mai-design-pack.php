@@ -342,7 +342,8 @@ final class Mai_Design_Pack {
 	 * @return string
 	 */
 	function get_image_url( $filename ) {
-		$file = esc_html( sprintf( 'assets/img/%s.png', $filename ) );
+		$ext  = false !== strpos( $filename, 'placeholder' ) ? 'jpg' : 'png';
+		$file = esc_html( sprintf( 'assets/img/%s.%s', $filename, $ext ) );
 		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
 	}
 }
