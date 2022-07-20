@@ -70,11 +70,11 @@
 <!-- /wp:paragraph -->
 <!-- /wp:acf/mai-list-item -->
 <!-- /wp:acf/mai-list -->
-<?php } else { ?>
-<!-- wp:heading {"textAlign":"center","style":{"color":{"background":"#ff0000"}},"textColor":"white"} -->
-<h2 class="has-text-align-center has-white-color has-text-color has-background" style="background-color:#ff0000">Requires Mai Lists plugin.</h2>
-<!-- /wp:heading -->
-<?php } ?>
+<?php
+} else {
+	echo maidp_get_requires( 'mai-lists' );
+}
+?>
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"width":100,"className":"is-style-secondary","fontSize":"sm"} -->
@@ -154,12 +154,11 @@
 <!-- /wp:paragraph -->
 <!-- /wp:acf/mai-list-item -->
 <!-- /wp:acf/mai-list -->
-<?php } else { ?>
-<!-- wp:heading {"textAlign":"center","style":{"color":{"background":"#ff0000"}},"textColor":"white"} -->
-<h2 class="has-text-align-center has-white-color has-text-color has-background" style="background-color:#ff0000">Requires Mai Lists plugin.</h2>
-<!-- /wp:heading -->
-<?php } ?>
-
+<?php
+} else {
+	echo maidp_get_requires( 'mai-lists' );
+}
+?>
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"width":100,"className":"is-style-default"} -->
 <div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-default"><a class="wp-block-button__link">Buy Now</a></div>
@@ -232,11 +231,11 @@
 <!-- /wp:paragraph -->
 <!-- /wp:acf/mai-list-item -->
 <!-- /wp:acf/mai-list -->
-<?php } else { ?>
-<!-- wp:heading {"textAlign":"center","style":{"color":{"background":"#ff0000"}},"textColor":"white"} -->
-<h2 class="has-text-align-center has-white-color has-text-color has-background" style="background-color:#ff0000">Requires Mai Lists plugin.</h2>
-<!-- /wp:heading -->
-<?php } ?>
+<?php
+} else {
+	echo maidp_get_requires( 'mai-lists' );
+}
+?>
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"width":100,"className":"is-style-secondary","fontSize":"sm"} -->

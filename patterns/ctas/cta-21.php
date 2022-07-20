@@ -36,11 +36,11 @@
 <!-- /wp:paragraph -->
 <!-- /wp:acf/mai-list-item -->
 <!-- /wp:acf/mai-list -->
-<?php } else { ?>
-<!-- wp:heading {"textAlign":"center","style":{"color":{"background":"#ff0000"}},"textColor":"white"} -->
-<h2 class="has-text-align-center has-white-color has-text-color has-background" style="background-color:#ff0000">Requires Mai Lists plugin.</h2>
-<!-- /wp:heading -->
-<?php } ?>
+<?php
+} else {
+	echo maidp_get_requires( 'mai-lists' );
+}
+?>
 <!-- /wp:acf/mai-column -->
 
 <!-- wp:acf/mai-column {"name":"acf/mai-column","data":{"align_column_vertical":"start","_align_column_vertical":"mai_column_align_column_vertical","spacing":"","_spacing":"mai_column_spacing","background":"","_background":"mai_column_background","shadow":"0","_shadow":"mai_columns_shadow","first_xs":"0","_first_xs":"mai_columns_first_xs","first_sm":"0","_first_sm":"mai_columns_first_sm","first_md":"0","_first_md":"mai_columns_first_md"},"mode":"preview"} -->

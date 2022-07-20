@@ -128,7 +128,7 @@ final class Mai_Design_Pack {
 		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
 		// Includes.
-		// foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
+		foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 	}
 
 	/**
@@ -369,17 +369,3 @@ function mai_design_pack() {
  * @return void
  */
 mai_design_pack();
-
-/**
- * Gets a placeholder image url.
- *
- * @access private
- * @since TBD
- *
- * @param string $filename The image file name withiout extension.
- *
- * @return string
- */
-function maidp_get_image_url( $filename ) {
-	return mai_design_pack()->get_image_url( $filename );
-}
