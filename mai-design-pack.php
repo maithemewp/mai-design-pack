@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Design Pack
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
  * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
- * Version:         1.0.0
+ * Version:         1.1.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -88,7 +88,7 @@ final class Mai_Design_Pack {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_DESIGN_PACK_VERSION' ) ) {
-			define( 'MAI_DESIGN_PACK_VERSION', '1.0.0' );
+			define( 'MAI_DESIGN_PACK_VERSION', '1.1.0' );
 		}
 
 		// Plugin Folder Path.
@@ -128,7 +128,7 @@ final class Mai_Design_Pack {
 		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
 		// Includes.
-		// foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
+		foreach ( glob( MAI_DESIGN_PACK_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
 	}
 
 	/**
@@ -138,8 +138,32 @@ final class Mai_Design_Pack {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'admin_init', [ $this, 'updater' ] );
-		add_filter( 'plugin_action_links_mai-design-pack/mai-design-pack.php', [ $this, 'plugins_link' ], 10, 4 );
+		$plugins_link_hook = 'plugin_action_links_mai-design-pack/mai-design-pack.php';
+		add_filter( $plugins_link_hook, [ $this, 'plugins_link' ], 10, 4 );
+		add_action( 'plugins_loaded',   [ $this, 'updater' ] );
+		add_action( 'init',             [ $this, 'register_block_pattern_categories' ], 4 );
+		add_action( 'init',             [ $this, 'unregister_block_pattern_categories' ] );
+		add_action( 'init',             [ $this, 'register_block_patterns' ], 4 );
+	}
+
+	/**
+	 * Return the plugin action links. This will only be called if the plugin is active.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array  $actions     Associative array of action names to anchor tags
+	 * @param string $plugin_file Plugin file name, ie my-plugin/my-plugin.php
+	 * @param array  $plugin_data Associative array of plugin data from the plugin file headers
+	 * @param string $context     Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
+	 *
+	 * @return array Associative array of plugin action links
+	 */
+	function plugins_link( $actions, $plugin_file, $plugin_data, $context ) {
+		if ( class_exists( 'Mai_Engine' ) ) {
+			$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Plugins', 'mai-engine' ) );
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -184,23 +208,143 @@ final class Mai_Design_Pack {
 	}
 
 	/**
-	 * Return the plugin action links. This will only be called if the plugin is active.
+	 * Registers block pattern categories.
 	 *
-	 * @since 0.1.0
+	 * @since 1.1.0
 	 *
-	 * @param array  $actions     Associative array of action names to anchor tags
-	 * @param string $plugin_file Plugin file name, ie my-plugin/my-plugin.php
-	 * @param array  $plugin_data Associative array of plugin data from the plugin file headers
-	 * @param string $context     Plugin status context, ie 'all', 'active', 'inactive', 'recently_active'
-	 *
-	 * @return array Associative array of plugin action links
+	 * @return void
 	 */
-	function plugins_link( $actions, $plugin_file, $plugin_data, $context ) {
-		if ( class_exists( 'Mai_Engine' ) ) {
-			$actions['settings'] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mai-theme' ), __( 'Plugins', 'mai-engine' ) );
+	function register_block_pattern_categories() {
+		// Types: Blocks, Sections, Homepages
+		// CTA 1 (Block)
+		// CTA 2 (Section)
+
+		// Contact Forms
+		// CTAs
+		// FAQs
+		// Features
+		// Footers
+		// Hero
+		// Homepages
+		// Landing Pages
+		// Logos
+		// Podcasts
+		// Portfolios
+		// Pricing Tables
+		// Team
+		// Testimonials
+
+		$cats = [
+			'mai_cta'     => __( 'Mai CTAs', 'mai-engine' ),
+			'mai_feature' => __( 'Mai Features', 'mai-engine' ),
+			'mai_hero'    => __( 'Mai Heroes', 'mai-engine' ),
+			'mai_posts'   => __( 'Mai Post Grid', 'mai-engine' ),
+			'mai_pricing' => __( 'Mai Pricing Tables', 'mai-engine' ),
+			'mai_team'    => __( 'Mai Team', 'mai-engine' ),
+			'mai_section' => __( 'Mai (Full Width Sections)', 'mai-engine' ),
+			'mai'         => __( 'Mai (All Patterns)', 'mai-engine' ),
+		];
+
+		foreach ( $cats as $name => $label ) {
+			register_block_pattern_category( $name,	[ 'label' => $label ] );
+		}
+	}
+
+	function unregister_block_pattern_categories() {
+		$cats = [
+			'featured',
+		];
+
+		foreach ( $cats as $cat ) {
+			unregister_block_pattern_category( $cat );
+		}
+	}
+
+	/**
+	 * Registers block patterns.
+	 *
+	 * Settable fields include:
+	 *
+	 *   - Description
+	 *   - Categories       (comma-separated values)
+	 *   - Keywords         (comma-separated values)
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	function register_block_patterns() {
+		if ( ! function_exists( 'register_block_pattern' ) ) {
+			return;
 		}
 
-		return $actions;
+		// Loop through patterns directories.
+		foreach ( glob( dirname( __FILE__ ) . '/patterns/*' ) as $dir ) {
+			// Get array of files.
+			$files =  glob( $dir . '/*.php' );
+			// Order them correctly, respecting the numbers at the end.
+			natsort( $files );
+			// Loop through files.
+			foreach ( $files as $file ) {
+				$base = basename( $file, '.php' );
+				$data = get_file_data(
+					$file,
+					[
+						'title'       => __( 'Title', 'mai-engine' ),
+						'description' => __( 'Description', 'mai-engine' ),
+						'categories'  => __( 'Categories', 'mai-engine' ),
+						'keywords'    => __( 'Keywords', 'mai-engine' ),
+					]
+				);
+
+				ob_start();
+				include $file;
+				$content    = ob_get_clean();
+				$title      = function_exists( 'mai_convert_case' ) ? mai_convert_case( $base, 'title' ) : $base;
+				$categories = array_map( 'trim', explode( ',', $data['categories'] ) );
+				$keywords   = array_map( 'trim', explode( ',', $data['keywords'] ) );
+
+				// Adds `mai_` prefix.
+				foreach ( $categories as $index => $category ) {
+					$categories[ $index ] = 'mai_' . $category;
+				}
+
+				// Adds 'mai' as standalone category and keyword.
+				$categories = array_merge( [ 'mai' ], $categories );
+				$keywords   = array_merge( [ 'mai' ], $keywords );
+
+				// Maybe add Section label.
+				if ( in_array( 'mai_section', $categories ) ) {
+					$title .= ' (Section)'; // Translated below.
+				}
+
+				register_block_pattern(
+					'mai/' . $base,
+					[
+						'title'       => __( $title, 'mai-engine' ),
+						'description' => __( $data['description'], 'mai-engine' ),
+						'content'     => trim( $content ),
+						'categories'  => $categories,
+						'keywords'    => $keywords,
+					]
+				);
+			}
+		}
+	}
+
+	/**
+	 * Gets a placeholder image url.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $filename The image file name withiout extension.
+	 *
+	 * @return string
+	 */
+	function get_image_url( $filename ) {
+		$ext  = false !== strpos( $filename, 'placeholder' ) ? 'jpg' : 'png';
+		$file = esc_html( sprintf( 'assets/img/%s.%s', $filename, $ext ) );
+		return file_exists( MAI_DESIGN_PACK_PLUGIN_DIR . $file ) ? MAI_DESIGN_PACK_PLUGIN_URL . $file : '';
 	}
 }
 
@@ -218,5 +362,11 @@ function mai_design_pack() {
 	return Mai_Design_Pack::instance();
 }
 
-// Get Mai_Design_Pack Running.
+/**
+ * Get Mai_Design_Pack Running.
+ *
+ * @since 0.1.0
+ *
+ * @return void
+ */
 mai_design_pack();
