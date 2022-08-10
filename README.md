@@ -1,2 +1,2 @@
 # Mai Design Pack
-Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
+Unlimited access to all Mai Plugins, Mai Patterns, and more. Requires Mai Theme v2.
