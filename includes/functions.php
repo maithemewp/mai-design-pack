@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Gets a placeholder image url.
  *
  * @access private
- * @since TBD
+ * @since 1.1.0
  *
  * @param string $filename The image file name withiout extension.
  *
@@ -21,7 +21,7 @@ function maidp_get_image_url( $filename ) {
  * Gets a placeholder HTML when a plugin is not installed.
  *
  * @access private
- * @since TBD
+ * @since 1.1.0
  *
  * @param string $plugin The plugin name.
  *

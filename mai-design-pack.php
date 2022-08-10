@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Design Pack
  * Plugin URI:      https://bizbudding.com/mai-design-pack/
  * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
- * Version:         1.1.0-beta.1
+ * Version:         1.1.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -88,7 +88,7 @@ final class Mai_Design_Pack {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_DESIGN_PACK_VERSION' ) ) {
-			define( 'MAI_DESIGN_PACK_VERSION', '1.1.0-beta.1' );
+			define( 'MAI_DESIGN_PACK_VERSION', '1.1.0' );
 		}
 
 		// Plugin Folder Path.
@@ -140,7 +140,7 @@ final class Mai_Design_Pack {
 	public function hooks() {
 		$plugins_link_hook = 'plugin_action_links_mai-design-pack/mai-design-pack.php';
 		add_filter( $plugins_link_hook, [ $this, 'plugins_link' ], 10, 4 );
-		add_action( 'admin_init',       [ $this, 'updater' ] );
+		add_action( 'plugins_loaded',   [ $this, 'updater' ] );
 		add_action( 'init',             [ $this, 'register_block_pattern_categories' ], 4 );
 		add_action( 'init',             [ $this, 'unregister_block_pattern_categories' ] );
 		add_action( 'init',             [ $this, 'register_block_patterns' ], 4 );
@@ -210,7 +210,7 @@ final class Mai_Design_Pack {
 	/**
 	 * Registers block pattern categories.
 	 *
-	 * @since TBD
+	 * @since 1.1.0
 	 *
 	 * @return void
 	 */
@@ -269,7 +269,7 @@ final class Mai_Design_Pack {
 	 *   - Categories       (comma-separated values)
 	 *   - Keywords         (comma-separated values)
 	 *
-	 * @since TBD
+	 * @since 1.1.0
 	 *
 	 * @return void
 	 */
@@ -335,7 +335,7 @@ final class Mai_Design_Pack {
 	/**
 	 * Gets a placeholder image url.
 	 *
-	 * @since TBD
+	 * @since 1.1.0
 	 *
 	 * @param string $filename The image file name withiout extension.
 	 *
