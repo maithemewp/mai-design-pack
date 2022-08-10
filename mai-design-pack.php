@@ -235,13 +235,13 @@ final class Mai_Design_Pack {
 		// Testimonials
 
 		$cats = [
-			'mai_section' => __( 'Mai (Full Width Sections)', 'mai-engine' ),
 			'mai_cta'     => __( 'Mai CTAs', 'mai-engine' ),
 			'mai_feature' => __( 'Mai Features', 'mai-engine' ),
 			'mai_hero'    => __( 'Mai Heroes', 'mai-engine' ),
 			'mai_posts'   => __( 'Mai Post Grid', 'mai-engine' ),
 			'mai_pricing' => __( 'Mai Pricing Tables', 'mai-engine' ),
 			'mai_team'    => __( 'Mai Team', 'mai-engine' ),
+			'mai_section' => __( 'Mai (Full Width Sections)', 'mai-engine' ),
 			'mai'         => __( 'Mai (All Patterns)', 'mai-engine' ),
 		];
 
