@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1 (6/20/23)
+* Fixed: Updater object not set.
+
 ## 1.2.0 (6/20/23)
 * Changed: Rename to Mai Theme Pro plugin.
 * Changed: Update the updater.
