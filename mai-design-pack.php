@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name:     Mai Design Pack
- * Plugin URI:      https://bizbudding.com/mai-design-pack/
+ * Plugin Name:     Mai Theme Pro Plugin (formerly Mai Design Pack)
+ * Plugin URI:      https://bizbudding.com/mai-theme-pro/
  * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
- * Version:         1.1.0
+ * Version:         1.2.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -12,6 +12,9 @@
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Must be at the top of the file.
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 /**
  * Main Mai_Design_Pack Class.
@@ -88,7 +91,7 @@ final class Mai_Design_Pack {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_DESIGN_PACK_VERSION' ) ) {
-			define( 'MAI_DESIGN_PACK_VERSION', '1.1.0' );
+			define( 'MAI_DESIGN_PACK_VERSION', '1.2.0' );
 		}
 
 		// Plugin Folder Path.
@@ -140,7 +143,7 @@ final class Mai_Design_Pack {
 	public function hooks() {
 		$plugins_link_hook = 'plugin_action_links_mai-design-pack/mai-design-pack.php';
 		add_filter( $plugins_link_hook, [ $this, 'plugins_link' ], 10, 4 );
-		add_action( 'plugins_loaded',   [ $this, 'updater' ] );
+		add_action( 'plugins_loaded',   [ $this, 'updater' ], 12 );
 		add_action( 'init',             [ $this, 'register_block_pattern_categories' ], 4 );
 		add_action( 'init',             [ $this, 'unregister_block_pattern_categories' ] );
 		add_action( 'init',             [ $this, 'register_block_patterns' ], 4 );
@@ -178,18 +181,12 @@ final class Mai_Design_Pack {
 	 * @return void
 	 */
 	public function updater() {
-		// Bail if current user cannot manage plugins.
-		if ( ! current_user_can( 'install_plugins' ) ) {
-			return;
-		}
-
 		// Bail if plugin updater is not loaded.
-		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+		if ( ! class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
 			return;
 		}
 
-		// Setup the updater.
-		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-design-pack/', __FILE__, 'mai-design-pack' );
+		PucFactory::buildUpdateChecker( 'https://github.com/maithemewp/mai-design-pack/', __FILE__, 'mai-design-pack' );
 
 		// Maybe set github api token.
 		if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
@@ -294,15 +291,17 @@ final class Mai_Design_Pack {
 						'description' => __( 'Description', 'mai-engine' ),
 						'categories'  => __( 'Categories', 'mai-engine' ),
 						'keywords'    => __( 'Keywords', 'mai-engine' ),
+						'block_types' => __( 'Block Types', 'mai-engine' ),
 					]
 				);
 
 				ob_start();
 				include $file;
-				$content    = ob_get_clean();
-				$title      = function_exists( 'mai_convert_case' ) ? mai_convert_case( $base, 'title' ) : $base;
-				$categories = array_map( 'trim', explode( ',', $data['categories'] ) );
-				$keywords   = array_map( 'trim', explode( ',', $data['keywords'] ) );
+				$content     = ob_get_clean();
+				$title       = function_exists( 'mai_convert_case' ) ? mai_convert_case( $base, 'title' ) : $base;
+				$categories  = array_map( 'trim', explode( ',', $data['categories'] ) );
+				$keywords    = array_map( 'trim', explode( ',', $data['keywords'] ) );
+				$block_types = array_map( 'trim', explode( ',', $data['block_types'] ) );
 
 				// Adds `mai_` prefix.
 				foreach ( $categories as $index => $category ) {
@@ -326,6 +325,7 @@ final class Mai_Design_Pack {
 						'content'     => trim( $content ),
 						'categories'  => $categories,
 						'keywords'    => $keywords,
+						'blockTypes'  => $block_types,
 					]
 				);
 			}
