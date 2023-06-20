@@ -186,7 +186,8 @@ final class Mai_Design_Pack {
 			return;
 		}
 
-		PucFactory::buildUpdateChecker( 'https://github.com/maithemewp/mai-design-pack/', __FILE__, 'mai-design-pack' );
+		// Setup the updater.
+		$updater = PucFactory::buildUpdateChecker( 'https://github.com/maithemewp/mai-design-pack/', __FILE__, 'mai-design-pack' );
 
 		// Maybe set github api token.
 		if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
