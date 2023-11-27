@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.3 (11/27/23)
+* Changed: Update the updated.
+
 ## 1.2.2 (9/21/23)
 * Changed: Rename to Mai Pro Plugin to lessen confusion on where to install.
 * Changed: Update the updated.
