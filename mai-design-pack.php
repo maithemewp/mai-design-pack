@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Pro Plugin (formerly Mai Design Pack)
  * Plugin URI:      https://bizbudding.com/mai-theme-pro/
  * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
- * Version:         1.2.3
+ * Version:         1.2.4
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -91,7 +91,7 @@ final class Mai_Design_Pack {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_DESIGN_PACK_VERSION' ) ) {
-			define( 'MAI_DESIGN_PACK_VERSION', '1.2.3' );
+			define( 'MAI_DESIGN_PACK_VERSION', '1.2.4' );
 		}
 
 		// Plugin Folder Path.
