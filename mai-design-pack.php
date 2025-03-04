@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:     Mai Pro Plugin (formerly Mai Design Pack)
+ * Plugin Name:     Mai Pro Plugin
  * Plugin URI:      https://bizbudding.com/mai-theme-pro/
  * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
  * Version:         1.2.4
