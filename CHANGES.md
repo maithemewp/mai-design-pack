@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.5 (5/26/26)
+* Changed: Updated the updater for PHP 8.4 support.
+* Changed: Removed “formerly” label from plugin name.
+
 ## 1.2.4 (12/4/25)
 * Changed: Updated the updater.
 
