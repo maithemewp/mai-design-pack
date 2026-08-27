@@ -5,6 +5,7 @@
  * Plugin URI:      https://bizbudding.com/mai-theme-pro/
  * Description:     Unlimited access to all Mai Plugins, and more. Requires Mai Theme v2.
  * Version:         1.2.5
+ * Requires PHP:    8.1
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
